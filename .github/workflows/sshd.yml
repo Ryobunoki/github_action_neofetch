@@ -1,0 +1,23 @@
+name: SSH Debugging with Tmate
+
+on:
+  workflow_dispatch: # 允许手动触发此工作流，方便调试
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup tmate for SSH access
+      uses: mxschmitt/action-tmate@v3 # 使用 tmate Action
+      with:
+        limit-access-to-actor: true # 限制只有触发工作流的用户才能连接，增强安全性
+
+    - name: Continue with your workflow steps (or pause for SSH)
+      run: |
+        echo "This is where your regular workflow steps would go."
+        echo "You can now connect via SSH using the provided command in the logs above."
+        echo "The workflow will pause here for 1000 minutes to allow you to connect and debug."
+        sleep 60000 # 暂停 1000 分钟，等待你连接
