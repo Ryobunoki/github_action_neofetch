@@ -1,0 +1,19 @@
+name: Show System Info with Neofetch
+
+on: [push, pull_request] # 在 push 或 pull request 时触发此工作流
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 使用 Ubuntu 最新版本作为 runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # 检查代码
+
+    - name: Install Neofetch
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y neofetch # 在 Ubuntu 上安装 Neofetch
+
+    - name: Run Neofetch
+      run: neofetch # 运行 Neofetch 命令
